@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<canvas id="myCanvas" width="200" height="100"
+style="border:1px solid #c3c3c3;">
+Your browser does not support the canvas element.
+</canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var context = canvas.getContext("2d");
+canvas.height = 100;
+canvas.width = canvas.height;
+
+context.beginPath();
+context.strokeStyle = "#00ff4f";
+context.fillStyle = "#404040";
+context.lineWidth = 7;
+
+context.arc(canvas.width*0.5, canvas.height*0.5,
+                20, 0, 2 * Math.PI);
+
+context.stroke();
+context.fill();
+
+/// Home 
+context.beginPath();
+context.strokeStyle = "#ffffff";
+context.fillStyle = "#ffffff";
+context.lineWidth = 1;
+
+context.moveTo(38, 50);
+context.lineTo(50, 40);
+context.lineTo(62, 50);
+context.lineTo(58, 50);
+context.lineTo(58, 60);
+context.lineTo(53, 60);
+context.lineTo(53, 53);
+context.lineTo(47, 53);
+context.lineTo(47, 60);
+context.lineTo(42, 60);
+context.lineTo(42, 50);
+context.lineTo(38, 50);
+
+context.stroke();
+context.fill();
+
+context.beginPath();
+context.strokeStyle = "#00ff4f";
+context.fillStyle = "#00ff4f";
+context.lineWidth = 1;
+
+// Move registration point to the center of the canvas
+context.translate(canvas.width*0.5, canvas.height*0.5);
+context.rotate(125*Math.PI/180);
+context.moveTo(-8, 30);
+context.lineTo(0, 45);
+context.lineTo(8, 30);
+
+context.stroke();
+context.fill();
+</script>
+</body>
+</html>
