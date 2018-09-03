@@ -1,6 +1,7 @@
 #include <sapi.h>
 #include <sphelper.h>
 #include <string>
+#include <iostream>
 #include <conio.h>
 
 int main(int argc, char* argv[])
@@ -16,36 +17,52 @@ int main(int argc, char* argv[])
 
     if (SUCCEEDED (hr))
     {
-       // Enumerate the available voices.
-       hr = SpEnumTokens(SPCAT_VOICES, NULL, NULL, &cpEnum);
+        // Enumerate the available voices.
+        hr = SpEnumTokens(SPCAT_VOICES, NULL, NULL, &cpEnum);
     }
 
     if (SUCCEEDED (hr))
     {
-       // Get the number of voices.
-       hr = cpEnum->GetCount(&ulCount);
+        // Get the number of voices.
+        hr = cpEnum->GetCount(&ulCount);
     }
 
     // Obtain a list of available voice tokens, set
     // the voice to the token, and call Speak.
     while (SUCCEEDED(hr) && ulCount--)
     {
-       cpVoiceToken.Release();
+        cpVoiceToken.Release();
 
-       if (SUCCEEDED (hr))
-       {
-          hr = cpEnum->Next(1, &cpVoiceToken, NULL);
-       }
+        if (SUCCEEDED (hr))
+        {
+            /// This is using Enumaration
+            //hr = cpEnum->Next(1, &cpVoiceToken, NULL);
 
-       if (SUCCEEDED (hr))
-       {
-          hr = cpVoice->SetVoice(cpVoiceToken);
-       }
+            hr = cpEnum->Item(ulCount, &cpVoiceToken);
+        }
 
-       if (SUCCEEDED (hr))
-       {
-          hr = cpVoice->Speak( L"How are you?", SPF_DEFAULT, NULL );
-       }
+        if (SUCCEEDED (hr))
+        {
+            WCHAR *wptr;
+            CSpDynamicString name;
+            cpVoiceToken->GetId(&wptr);
+            SpGetDescription(cpVoiceToken, &name);
+            std::cout<<"ID :"<<wptr<<" Name :"<<name<<std::endl;
+            hr = cpVoice->SetVoice(cpVoiceToken);
+        }
 
+        if (SUCCEEDED (hr))
+        {
+            hr = cpVoice->Speak(L"<pitch absmiddle=\"+10\">This is a "
+                                "really high pitched voice</pitch> "
+                                "<pitch absmiddle=\"-10\"> but the "
+                                "pitch drops half way through</pitch>",
+                                SVSFIsXML | SVSFPurgeBeforeSpeak, NULL);
+            //hr = cpVoice->Speak( L"How are you?", SPF_DEFAULT, NULL );
+        }
     }
+
+    puts("Press any key to continue...");
+    getch();
+    return 0;
 }
