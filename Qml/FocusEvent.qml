@@ -8,70 +8,101 @@ ApplicationWindow {
     height: 105
     title: qsTr("Focus Out Event")
 
-    Row {
+   Row {
         anchors.centerIn: parent
-        spacing: 10
+        spacing: 20
 
         Rectangle {
-            id: rect1
-            height: 100
-            width:  100
-            border.width: 0
-            border.color: Qt.rgba(0, 0, 255, 255)
-            color: Qt.rgba(255, 0, 0, 255)
-
-            onFocusChanged: {
-                if(rect1.focus)
-                    rect1.border.width = 2
-                else
-                    rect1.border.width = 0
-            }
+            id: one
+            height: 50
+            width: 50
+            color: focus ? "red" : "pink"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: parent.forceActiveFocus();
+                onClicked: parent.focus = true;
             }
         }
 
         Rectangle {
-            id: rect2
-            height: 100
-            width:  100
-            border.width: 0
-            border.color: Qt.rgba(0, 0, 255, 255)
-            color: Qt.rgba(0, 255, 0, 255)
-
-            onFocusChanged: {
-                if(rect2.focus)
-                    rect2.border.width = 2
-                else
-                    rect2.border.width = 0
-            }
+            id: two
+            height: 50
+            width: 50
+            color: focus ? "red" : "pink"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: parent.forceActiveFocus();
+                onClicked: parent.focus = true;
             }
         }
 
         Rectangle {
-            id: rect3
-            height: 100
-            width:  100
-            border.width: 0
-            border.color: Qt.rgba(0, 0, 255, 255)
-            color: Qt.rgba(255, 255, 0, 255)
-
-            onFocusChanged: {
-                if(rect3.focus)
-                    rect3.border.width = 2
-                else
-                    rect3.border.width = 0
-            }
+            id: three
+            height: 50
+            width: 50
+            color: focus ? "red" : "pink"
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: parent.forceActiveFocus();
+                onClicked: {
+                    parent.focus = true;
+                }
+            }
+        }
+
+        Rectangle {
+            id: four
+            height: 200
+            width: 50
+            color: isFocused ? "red" : "pink"
+
+            property bool isFocused: false
+
+            Column {
+                anchors.fill: parent
+
+                Rectangle {
+                    width: parent.width
+                    height: 50
+                    border.color: "black"
+                    border.width: 2
+                    TextInput {
+                        id: editOne
+                        anchors.fill: parent
+                        onFocusChanged: four.activeFChanged();
+                    }
+                }
+
+                Rectangle {
+                    width: parent.width
+                    height: 50
+                    border.color: "black"
+                    border.width: 2
+                    TextInput {
+                        id: editTwo
+                        anchors.fill: parent
+                        onFocusChanged: four.activeFChanged();
+                    }
+                }
+
+                Rectangle {
+                    width: parent.width
+                    height: 50
+                    border.color: "black"
+                    border.width: 2
+                    TextInput {
+                        id: editThree
+                        anchors.fill: parent
+                        onFocusChanged: four.activeFChanged();
+                    }
+                }
+            }
+
+            function activeFChanged() {
+                if(editOne.focus || editTwo.focus || editThree.focus)
+                    isFocused = true;
+                else
+                    isFocused = false;
             }
         }
     }
