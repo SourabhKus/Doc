@@ -1,0 +1,21 @@
+Host a python server 
+
+1: Install Python
+2: set C:\Python37-32 in windows path
+3: Now go to your website directory
+4: python -m http.server {port}
+
+
+1: Install Node.js
+2: go to website directory
+3: npm install ws
+4: sudo npm -g install http-server
+5: node websocket-relay.js supersecret 8081 8082
+
+  a) websocket-relay will listen in 8081 and replied on 8082
+  b) RECORD_STREAM = true (it will start recording but you have to create recordings dir)
+     it will write all data in *.ts file
+
+
+ffpeg command for video sending to websocket
+  ffmpeg -i udp://@224.10.10.10:15004/ -f mpegts -codec:v mpeg1video -b:v 800k -r 25 http://localhost:8081/supersecret
