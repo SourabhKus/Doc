@@ -1,0 +1,23 @@
+static int count = 0;
+static const AVIOInterruptCB int_cb = { interrupt_cb, NULL };
+
+static int interrupt_cb(void *ctx)
+{
+    AVFormatContext* formatContext = reinterpret_cast<AVFormatContext*>(ctx);
+    qDebug()<<"Count = "<<count++;
+    return 0;
+}
+
+    d->pFormatCtx = avformat_alloc_context();
+    d->pFormatCtx->interrupt_callback.callback = interrupt_cb;
+    d->pFormatCtx->interrupt_callback.opaque = d->pFormatCtx;
+
+    AVDictionary *codec_options = NULL;
+    av_dict_set(&codec_options, "timeout", "1", 0);
+
+    if(avformat_open_input(&d->pFormatCtx, d->player->url().
+                           toUtf8().data(), NULL, &codec_options) != 0)
+    {
+        qDebug()<<"Couldn't open file "<<d->player->url();
+        return;
+    }
