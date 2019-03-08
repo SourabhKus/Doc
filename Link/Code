@@ -1,1 +1,9 @@
 https://download.qt.io/archive/qt/
+
+MAVLINK
+------------------------
+http://mavlink.org/messages/ardupilotmega
+https://pixhawk.ethz.ch/mavlink/
+https://github.com/mavlink/c_library_v1/blob/master/ardupilotmega/mavlink_msg_mag_cal_report.h
+http://discuss.ardupilot.org/t/mavlink-step-by-step/9629
+
