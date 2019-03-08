@@ -7,3 +7,6 @@ https://pixhawk.ethz.ch/mavlink/
 https://github.com/mavlink/c_library_v1/blob/master/ardupilotmega/mavlink_msg_mag_cal_report.h
 http://discuss.ardupilot.org/t/mavlink-step-by-step/9629
 
+C++
+--------------------------
+http://blog.ostermiller.org/find-loop-singly-linked-list
