@@ -1,0 +1,24 @@
+Point Lies between two Points or Not
+----------------------------------
+dxc = currPoint.x - point1.x;
+dyc = currPoint.y - point1.y;
+
+dxl = point2.x - point1.x;
+dyl = point2.y - point1.y;
+
+cross = dxc * dyl - dyc * dxl;
+
+Your point lies on the line if and only if cross is equal to zero.
+
+if (cross != 0)
+  return false;
+  
+  
+  if (abs(dxl) >= abs(dyl))
+  return dxl > 0 ? 
+    point1.x <= currPoint.x && currPoint.x <= point2.x :
+    point2.x <= currPoint.x && currPoint.x <= point1.x;
+else
+  return dyl > 0 ? 
+    point1.y <= currPoint.y && currPoint.y <= point2.y :
+    point2.y <= currPoint.y && currPoint.y <= point1.y;
