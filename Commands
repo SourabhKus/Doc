@@ -1,0 +1,41 @@
+# Docker Commands
+------------------------
+1. To run a container in interactive mode with shell access
+    docker exec -it [container_name] bash
+    
+2. To see on which services are running on which ip     
+    docker inspect -f '{{.Name}} - {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $(docker ps -aq)
+    
+3. To see logs of a container
+    docker logs [container_name]
+
+4. To see all docker process
+    docker ps     (to watch specific we can use 'docker ps | grep mysql')
+ 
+5. To remove dangling images
+    docker rmi -f $(docker images -f "dangling=true" -q)
+    
+
+# Setting Up GitHub access token (SSH and GPG keys)
+------------------------
+1. Generate SSH key
+    ssh-keygen -t ed25519 -C "[user's email]"
+2. Copy paste key's pub in GitHub SSH key section and "Enable SSO".
+3. Open terminal and check did you got access or not
+    ssh -vT  git@github.com ( git@github.com: Permission denied (publickey). )
+    ssh-add -l (The agent has no identities) means add private key in ssh
+    ssh-add [Full path with private key file name]
+4. Add Personal Access Token
+    Settings -> Developer Settings -> Personal Access Token 
+    Give Permissions & Generate Token & copy paste it.
+    "Enable SSO"
+    
+    $ git clone https://github.com/username/repo.git
+    Username: your_username
+    Password: your_token
+    
+ # Chrome does not allowes to load files from local directory to enable that
+ ------------------------
+    open -n -a /Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --args --user-data-dir="/tmp/chrome_dev_test" --disable-web-security
+    
+    
